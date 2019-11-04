@@ -6,7 +6,7 @@ const Burger = (props) =>{
     let newIngredients = Object.keys(props.ingredients)
                            .map(igKey =>{
                                return [...Array(props.ingredients[igKey])].map((_,i) => {
-                                  return <BurgerIngredients key={igKey+i} types={igKey}/>;
+                                  return <BurgerIngredients key={igKey+i} type={igKey}/>;
                                })
                            }).reduce((arr,el)=>{
                                return arr.concat(el)
@@ -17,9 +17,9 @@ const Burger = (props) =>{
     }
     return (
         <div className = {BurgerCss.Burger}>
-            <BurgerIngredients types="bread-top"/>
+            <BurgerIngredients type="bread-top"/>
             {newIngredients}
-            <BurgerIngredients types="bread-bottom"/>
+            <BurgerIngredients type="bread-bottom"/>
         </div>
     );
 }
