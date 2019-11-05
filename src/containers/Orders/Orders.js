@@ -12,8 +12,8 @@ class Orders extends Component{
     }
 
     componentDidMount(){
-        Axios.get("/orders.json")
-        .then(res =>{
+        Axios.get("/order.json")
+        .then(res => {
             const fetchedData = []
             for(let key in res.data){
                     fetchedData.push({
@@ -21,6 +21,7 @@ class Orders extends Component{
                         id:key
                     })
             }
+            console.log(fetchedData)
             this.setState({loading:false,orders:fetchedData})
         })
         .catch(err =>{
@@ -30,8 +31,13 @@ class Orders extends Component{
     render(){
         return(
             <div>
-                <Order />
-                <Order />
+                {this.state.orders.map(order => (
+                    <Order 
+                    key = {order.id}
+                    ingredients = {order.ingredients}
+                    price = {order.price}
+                    />
+                ))}
             </div>
         )
     }
