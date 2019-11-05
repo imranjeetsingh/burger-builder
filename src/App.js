@@ -5,16 +5,18 @@ import Layout from './hoc/Layout/layout';
 import BurgerBuilder from './containers/burgerbuulder/burgerbuilder';
 import Checkout from "./containers/Checkout/Checkout";
 
+import Orders from './containers/Orders/Orders'
 class App extends Component {
   
   render() {
     return (
       <div>
         <Layout>
-          {/* <Switch> */}
+          <Switch>
             <Route path="/" exact component={BurgerBuilder} />
+            <Route path="/orders" component={Orders} />
             <Route path="/checkout" component = {Checkout} />
-          {/* </Switch> */}
+          </Switch>
         </Layout>
       </div>
     );
