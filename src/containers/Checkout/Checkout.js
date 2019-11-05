@@ -11,10 +11,29 @@ class Checkout extends Component{
         cheese : 1,
         }
     }
+
+    componentDidMount(){
+        const query = new URLSearchParams(this.props.location.search)
+        const ingredients = {};
+        for(let param of query.entries()){
+            ingredients [param[0]] = +param[1]
+        }
+        this.setState({ingredients:ingredients});
+    }
+
+    onClickedCancelled = () =>{
+        this.props.history.goBack();
+    }
+    onClickedContinued = () =>{
+        this.props.history.replace('/checkout/contact-data')
+    }
     render(){
         return(
             <div>
-                <CheckoutSummary ingredients = {this.state.ingredients}/>
+                <CheckoutSummary 
+                onClickedContinued = {this.onClickedContinued}
+                onClickedCancelled = {this.onClickedCancelled}
+                ingredients = {this.state.ingredients}/>
             </div>
         )
     }
