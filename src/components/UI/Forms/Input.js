@@ -3,23 +3,31 @@ import React from 'react';
 import classes from './Input.css';
 
 const Input = (props) =>{
+    let validationMessage = null;
     let inputElement = null;
+    const inpuClasses = [classes.InputElement]
+    if(props.invalid && props.shouldValidate && props.touched){
+        inpuClasses.push(classes.Invalid)
+    }
+    if(props.invalid && props.touched){
+        validationMessage = <p className={classes.ValidationError}>Please enter a valid value!!!</p>
+    }
     console.log(props.elementType)
     switch(props.elementType){
         case('input') :
-            inputElement = <input className={classes.InputElement} 
+            inputElement = <input className={inpuClasses.join(' ')} 
                             {...props.elementConfig} value ={props.value}
                             onChange = {props.changed}/>
             break;
         case('textarea') :
-            inputElement = <textarea className={classes.InputElement} 
+            inputElement = <textarea className={inpuClasses.join(' ')} 
                             {...props.elementConfig} value = {props.value} 
                             onChange = {props.changed}
                             />
             break;
         case('select') :
             inputElement = <select 
-                            className = {classes.InputElement}
+                            className = {inpuClasses.join(' ')}
                             value ={props.value} onChange = {props.changed}>
                             {props.elementConfig.options.map(option=>(
                                 <option key={option} value ={option.value}>
@@ -29,7 +37,7 @@ const Input = (props) =>{
                             </select>
             break;
         default :
-            inputElement = <input className={classes.InputElement} 
+            inputElement = <input className={inpuClasses.join(' ')} 
                             {...props.elementConfig} value = {props.value}/>
     }
 
@@ -37,6 +45,7 @@ const Input = (props) =>{
         <div className={classes.Input}>
             <label>{props.label}</label>
             {inputElement}
+            {validationMessage}
         </div>
     )
 }

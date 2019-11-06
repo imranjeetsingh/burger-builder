@@ -19,8 +19,15 @@
     width: 100%;
     display: block;
 }
-
+.Invalid{
+    border: 1px solid red;
+    background-color: rosybrown;
+}
 .InputElement:focus{
     outline: none;
     background-color: #ccc;
+}
+.ValidationError {
+    color: red;
+    margin: 5px 0;
 }
