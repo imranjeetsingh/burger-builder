@@ -66,9 +66,14 @@ class ContactData extends Component{
 
     orderHandler = (event) =>{
         event.preventDefault();
-        console.log(this.props.price)
+        // console.log(this.props.price)
         this.setState({loading:true})
+        const formdata = {}
+        for(let data in this.state.OrderForm){
+            formdata[data] = this.state.OrderForm[data].value;
+        }
         const order = {
+            customer : formdata,
             ingredients: this.props.ingredients,
             price: this.props.price,
         }
