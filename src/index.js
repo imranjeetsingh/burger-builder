@@ -7,15 +7,15 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {BrowserRouter} from 'react-router-dom';
-import Reducer from './store/reducers';
+import reducer from './store/reducers';
 
-const store = createStore(Reducer);
+const store = createStore(reducer);
 
 const NewApp =(
     <Provider store = {store}>
-    <BrowserRouter>
-        <App/>
-    </BrowserRouter>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
     </Provider>
 )
 
