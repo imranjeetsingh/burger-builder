@@ -10,7 +10,6 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import Axios from '../../axios-order';
 import ErrorHandler from '../../hoc/WithError/withError';
 import * as ActionType from '../../store/actions';
-import { stat } from 'fs';
 
 
 class BurgerBuilder extends Component{
@@ -22,15 +21,6 @@ class BurgerBuilder extends Component{
         error : false
     }
 
-    componentDidMount(){
-        // Axios.get("https://react-burger-app-ab541.firebaseio.com/ingredients.json")
-        // .then(response =>{
-        //     this.setState({ingredients : response.data})
-        // }).catch(error =>{
-        //     this.setState({error:true})
-        // })
-    }
-
     purchasehandler = () =>{
         this.setState({purchasing : true});
     }
@@ -40,30 +30,20 @@ class BurgerBuilder extends Component{
     }
 
     purchaseContinuehandler = () =>{
-        // alert("Have your Burger!!!")
-        
-        const queryParams =[]
-        for(let i in this.props.ings){
-            queryParams.push(encodeURIComponent(i)+"="+encodeURIComponent(this.props.ings[i]))
-        }
-        queryParams.push('price='+this.props.totalPrice);
-        const queryString = queryParams.join('&');
-        this.props.history.push({
-            pathname: '/checkout',
-            search : '?'+queryString
 
-        })
-        // this.props.history.push("/checkout");
+        this.props.history.push("/checkout");
     }
 
-    updatePurchaseable (ingredients) {
-        const sum = Object.keys(ingredients)
+    updatePurchaseable () {
+        const sum = Object.keys(this.props.ings)
                     .map(igKey =>{
-                        return ingredients[igKey]
-                    }).reduce((sum,el) =>{
+                        return this.props.ings[igKey]
+                    })
+                    .reduce((sum,el) =>{
                         return sum+el
                     },0)
-        this.setState({purchasable : sum>0});
+        return sum > 0;
+        // this.setState({purchasable : sum>0});
         // console.log(this.state.purchasable,sum)
     }
 
@@ -88,7 +68,7 @@ class BurgerBuilder extends Component{
                         disabled={disableInfo}
                         totalPrice={this.props.totalPrice}
                         ordered={this.purchasehandler}
-                        purchaseable={this.state.purchasable} /></Aux>)
+                        purchaseable={this.updatePurchaseable()} /></Aux>)
             orderSummary = <OrderSummary ingredients={this.props.ings}
                 purchaseCanceled={this.purchaseCancelhandler}
                 purchaseContinued={this.purchaseContinuehandler}

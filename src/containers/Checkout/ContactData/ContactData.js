@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 import Button from '../../../components/UI/Button/Button';
 import Classes from './ContactData.css';
@@ -121,8 +122,8 @@ class ContactData extends Component{
         }
         const order = {
             customer : formdata,
-            ingredients: this.props.ingredients,
-            price: this.props.price,
+            ingredients: this.props.ings,
+            price: this.props.totalPrice,
         }
         Axios.post("/order.json",order)
         .then(response => {
@@ -188,4 +189,12 @@ class ContactData extends Component{
     }
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+    return {
+        ings : state.ingredients,
+        totalPrice : state.totalPrice
+    }
+}
+
+
+export default connect(mapStateToProps)(ContactData);
