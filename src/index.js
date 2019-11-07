@@ -14,8 +14,8 @@ import orderReducer from './store/Reducers/orders';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-    burgerBuilder : burgerBuilderReducer,
-    order : orderReducer
+    order : orderReducer,
+    burgerBuilder : burgerBuilderReducer
 })
 
 const store = createStore(rootReducer,composeEnhancers(applyMiddleware(thunk)))
