@@ -14,11 +14,9 @@ import * as BurgerBuilderActions from '../../store/Actions/index';
 
 class BurgerBuilder extends Component{
     state = {
-        totalPrice : 5,
         purchasable : false,
         purchasing : false,
-        loading : false,
-        error : false
+
     }
 
     purchasehandler = () =>{
@@ -32,6 +30,10 @@ class BurgerBuilder extends Component{
     purchaseContinuehandler = () =>{
 
         this.props.history.push("/checkout");
+    }
+
+    componentDidMount(){
+        this.props.initIngrdients();
     }
 
     updatePurchaseable () {
@@ -57,7 +59,9 @@ class BurgerBuilder extends Component{
         }
         let orderSummary =null;
         
-        let burger = this.state.error ? <p>Ingredients can't be loaded from database.</p> : <Spinner/>
+        console.log(this.props.error)
+
+        let burger = this.props.error ? <p>Ingredients can't be loaded from database.</p> : <Spinner/>
         if (this.props.ings) {
             burger = (
                 <Aux>
@@ -92,14 +96,16 @@ class BurgerBuilder extends Component{
 const mapStateToProps = state => {
     return {
         ings : state.ingredients,
-        totalPrice : state.totalPrice
+        totalPrice : state.totalPrice,
+        error : state.error,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onIngredientAdded : (ingName) => dispatch(BurgerBuilderActions.addIgredient(ingName)),
-        onIngredientRemoved : (ingName) => dispatch(BurgerBuilderActions.removeIngredient(ingName))
+        onIngredientRemoved : (ingName) => dispatch(BurgerBuilderActions.removeIngredient(ingName)),
+        initIngrdients : () => dispatch(BurgerBuilderActions.initIngredients()),
     }
 }
 
