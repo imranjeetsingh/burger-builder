@@ -1,4 +1,4 @@
-import * as ActionType from './actions';
+import * as ActionType from '../Actions/actionsTypes';
 
 const initialState = {
     ingredients : {
@@ -36,7 +36,7 @@ const reducer = ( state = initialState, action) => {
                     ...state.ingredients,
                     [action.ingredientsName] : state.ingredients[action.ingredientsName]-1
                 },
-                totalPrice : state.totalPrice+INGREDIENTS_PRICES[action.ingredientsName]
+                totalPrice : state.totalPrice-INGREDIENTS_PRICES[action.ingredientsName]
             }
         
     }
